@@ -16,7 +16,7 @@ fi
 if [ ! -f "$HOST_DATA_FILE" ]; then
     echo "Data file $HOST_DATA_FILE not found. Creating empty file."
     # Create an empty JSON object {}
-    echo "{}" > "$HOST_DATA_FILE"
+    echo "[]" > "$HOST_DATA_FILE"
 fi
 
 # --- Step 3: Run Docker Compose ---

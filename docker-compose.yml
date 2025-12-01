@@ -1,22 +1,18 @@
-# docker-compose.yml
+
 version: '3.8'
 services:
-  # Your API service that uses the data.json file
   api:
-    image: test-api-image
+    image: ongzhili/takehome1:latest
     ports:
       - "8080:3000"
-    # Mount the storage directory, which now contains data.json
     volumes:
       - ./storage:/app/storage
-    # The /app/storage/data.json path is what your app will use inside the container
     restart: always
 
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
-    # Example: Mount your nginx config (optional)
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
