@@ -21,6 +21,6 @@ fi
 
 # --- Step 3: Run Docker Compose ---
 echo "Starting containers..."
-docker compose up -d
+docker-compose up -d
 
 echo "Initialization and deployment complete."
