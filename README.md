@@ -12,7 +12,7 @@ docker build -t my-node-app:latest .
 docker run -d -p 3000:3000 --name node-server my-node-app:latest
 ```
 
-Accessing the application locally:
+API Endpoints
 
 | Endpoint | Body | Params | Description
 | :--- | :--- | :--- | :--- |
