@@ -1,18 +1,26 @@
 # Instructions to run code:
 
-Local:
-```
+## Local:
+
+```bash
 npm install
 node server.js
 ```
 
-via Dockerfile:
-```
+## via Dockerfile:
+
+```bash
 docker build -t my-node-app:latest .
 docker run -d -p 3000:3000 --name node-server my-node-app:latest
 ```
 
-API Endpoints
+## Enable HTTPS on cloud server:
+
+HTTPS was configured on host machine via nginx.
+Steps followed were from [this link](https://medium.com/@m.fareed607/how-to-set-up-an-nginx-reverse-proxy-server-and-enable-https-with-certbot-bbab9feb6338)
+
+
+## API Endpoints
 
 | Endpoint | Body | Params | Description
 | :--- | :--- | :--- | :--- |
@@ -24,4 +32,7 @@ API Endpoints
 
 # Run tests
 
-`npm test`
+```bash
+npm install
+npm test
+```
