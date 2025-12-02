@@ -1,18 +1,22 @@
 const express = require('express');
 const { deleteMetadataValidator } = require('../../middleware/metadatavalidator');
-const dataService = require('../../services/dataservice');
-const router = express.Router();
 
-router.delete('/:email', deleteMetadataValidator, async (req, res) => {
-  const { email } = req.params;
+function createDeleteContactRouter(dataService) {
+  const router = express.Router();
 
-  const deleted = dataService.deleteContact(email);
-  
-  if (!deleted) {
-    return res.status(404).json({ error: "Contact not found" });
-  }
+  router.delete('/', deleteMetadataValidator, async (req, res) => {
+    const { email } = req.query;
 
-  res.json(deleted);
-});
+    const deleted = dataService.deleteContact(email);
 
-module.exports = router;
+    if (!deleted) {
+      return res.status(404).json({ error: "Contact not found" });
+    }
+
+    return res.json(deleted);
+  });
+
+  return router;
+}
+
+module.exports = createDeleteContactRouter;

@@ -37,12 +37,12 @@ function addMetadataValidator(req, res, next) {
 }
 
 function deleteMetadataValidator(req, res, next) {
-  if (!req.params) {
-    console.log(`[VALIDATION FAILED] ${req.method} ${req.path} - URL params are required`);
-    return res.status(400).json({ error: "URL params are required" });
+  if (!req.query) {
+    console.log(`[VALIDATION FAILED] ${req.method} ${req.path} - Email query parameter is required`);
+    return res.status(400).json({ error: "Email query parameter is required" });
   }
 
-  const { email } = req.params;
+  const { email } = req.query;
 
   if (!email) {
     console.log(`[VALIDATION FAILED] ${req.method} ${req.path} - Email is required`);
@@ -59,12 +59,12 @@ function deleteMetadataValidator(req, res, next) {
 }
 
 function getMetadataValidator(req, res, next) {
-  if (!req.params) {
-    console.log(`[VALIDATION FAILED] ${req.method} ${req.path} - URL params are required`);
-    return res.status(400).json({ error: "URL params are required" });
+  if (!req.query) {
+    console.log(`[VALIDATION FAILED] ${req.method} ${req.path} - Email query parameter is required`);
+    return res.status(400).json({ error: "Email query parameter is required" });
   }
 
-  const { email } = req.params;
+  const { email } = req.query;
 
   if (!email) {
     console.log(`[VALIDATION FAILED] ${req.method} ${req.path} - Email is required`);

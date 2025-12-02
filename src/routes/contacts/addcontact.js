@@ -1,14 +1,22 @@
 const express = require('express');
 const { addMetadataValidator } = require('../../middleware/metadatavalidator');
-const dataService = require('../../services/dataservice');
-const router = express.Router();
 
-router.post('/', addMetadataValidator, async (req, res) => {
-  const { email, name, phone } = req.body;
+function createAddContactRouter(dataService) {
+  const router = express.Router();
 
-  const newContact = dataService.addContact(email, name, phone);
-  console.log(`[ADD SUCCESS] Contact added: ${email}`);
-  return res.status(201).json(newContact);
-});
+  router.post('/', addMetadataValidator, async (req, res) => {
+    const { email, name, phone } = req.body;
 
-module.exports = router;
+    const newContact = dataService.addContact(email, name, phone);
+
+    if (newContact.exists) {
+      return res.status(400).json({ error: 'Contact already exists' });
+    }
+
+    return res.status(201).json(newContact);
+  });
+
+  return router;
+}
+
+module.exports = createAddContactRouter;

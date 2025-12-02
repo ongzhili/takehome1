@@ -2,8 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 class DataService {
-  constructor() {
-    this.dataPath = path.join(__dirname, '../../storage/data.json');
+  constructor({ dataPath, fsModule = fs } = {}) {
+    this.fs = fsModule;
+    this.dataPath = dataPath || path.join(__dirname, '../../storage/data.json');
     this.contacts = new Map();
     this.ensureFileExists();
     this.loadData();
@@ -12,20 +13,20 @@ class DataService {
   ensureFileExists() {
     const dir = path.dirname(this.dataPath);
     
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    if (!this.fs.existsSync(dir)) {
+      this.fs.mkdirSync(dir, { recursive: true });
       console.log(`Created directory: ${dir}`);
     }
     
-    if (!fs.existsSync(this.dataPath)) {
-      fs.writeFileSync(this.dataPath, JSON.stringify([], null, 2));
+    if (!this.fs.existsSync(this.dataPath)) {
+      this.fs.writeFileSync(this.dataPath, JSON.stringify([], null, 2));
       console.log(`Created file: ${this.dataPath}`);
     }
   }
 
   loadData() {
     try {
-      const fileContent = fs.readFileSync(this.dataPath, 'utf8');
+      const fileContent = this.fs.readFileSync(this.dataPath, 'utf8');
       const jsonArray = JSON.parse(fileContent);
       
       jsonArray.forEach((contact) => {
@@ -41,7 +42,7 @@ class DataService {
   saveData() {
     try {
       const dataArray = Array.from(this.contacts.values());
-      fs.writeFileSync(this.dataPath, JSON.stringify(dataArray, null, 2));
+      this.fs.writeFileSync(this.dataPath, JSON.stringify(dataArray, null, 2));
     } catch (err) {
       console.error('Error saving data:', err.message);
     }
@@ -79,4 +80,4 @@ class DataService {
   }
 }
 
-module.exports = new DataService();
+module.exports = DataService;

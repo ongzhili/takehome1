@@ -1,20 +1,24 @@
 const express = require('express');
 const { getMetadataValidator } = require('../../middleware/metadatavalidator');
-const dataService = require('../../services/dataservice');
-const router = express.Router();
 
-router.get('/:email', getMetadataValidator, async (req, res) => {
-  const { email } = req.params;
+function createGetContactRouter(dataService) {
+  const router = express.Router();
 
-  const contact = dataService.getContact(email);
-  
-  if (!contact) {
-    console.log(`[GET FAILED] Contact with email ${email} not found`);
-    return res.status(404).json({ error: "Contact not found" });
-  }
+  router.get('/', getMetadataValidator, async (req, res) => {
+    const { email } = req.query;
 
-  console.log(`[GET SUCCESS] Contact retrieved: ${email}`);
-  res.json(contact);
-});
+    const contact = dataService.getContact(email);
 
-module.exports = router;
+    if (!contact) {
+      console.log(`[GET FAILED] Contact with email ${email} not found`);
+      return res.status(404).json({ error: "Contact not found" });
+    }
+
+    console.log(`[GET SUCCESS] Contact retrieved: ${email}`);
+    return res.json(contact);
+  });
+
+  return router;
+}
+
+module.exports = createGetContactRouter;
