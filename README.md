@@ -1,4 +1,4 @@
-Instructions to run:
+# Instructions to run code:
 
 Local:
 ```
@@ -16,7 +16,12 @@ API Endpoints
 
 | Endpoint | Body | Params | Description
 | :--- | :--- | :--- | :--- |
-| `POST app/v1/addContact` | { `email`, `phone`, `name` } | NIL | Adds the contact to the contact book |
-| `GET app/v1/getContact` | NIL | `email`: `string` | Gets the contact, given the e-mail |
-| `DELETE app/v1/deleteContact` | NIL | `email`: `string` | Deletes the given e-mail|
-| `GET app/v1/health` | NIL | NIL | Endpoint to check if API is alive |
+| `POST` `app/v1/addContact` | { `email`: `your_email`, `phone`: `your_phone`, `name`: `your_name` } | NIL | Adds the contact to the contact book |
+| `GET` `app/v1/getContact?email=<email>` | NIL | NIL | Gets the contact, identified by e-mail |
+| `DELETE` `app/v1/deleteContact?email=<email>` | NIL | NIL | Deletes the given contact, identified by e-mail |
+| `GET` `app/v1/health` | NIL | NIL | Endpoint to check if API is alive |
+
+
+# Run tests
+
+`npm test`
